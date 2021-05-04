@@ -6,3 +6,10 @@ spring:
     password: bitnami
     requestedHeartBeat: 10
     connectionTimeout: 2
+    # ssl.enabled: true
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template.mandatory: true
+
+app:
+  is-confirm-enabled: true
