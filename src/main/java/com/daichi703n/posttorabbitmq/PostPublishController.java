@@ -24,14 +24,18 @@ public class PostPublishController {
   @PostMapping("/publish")
   private ResponseEntity<?> publish(@RequestBody @Validated PostMessage postMassage) throws Exception {
     System.out.println("POST: "+mapper.writeValueAsString(postMassage));
+    ResponseMessage responseMessage = new ResponseMessage();
+    responseMessage.setRequest(mapper.writeValueAsString(postMassage));
     try {
       publisher.publish(mapper.writeValueAsString(postMassage));
     } catch (Exception e) {
       e.printStackTrace();
-      postMassage.setStatus("500");
-      return ResponseEntity.status(500).body(postMassage);
+      responseMessage.setStatus("500");
+      responseMessage.setMessage("ERROR");
+        return ResponseEntity.status(500).body(responseMessage);
     }
-    postMassage.setStatus("200");
-    return ResponseEntity.status(200).body(postMassage);
+    responseMessage.setStatus("200");
+    responseMessage.setMessage("OK");
+    return ResponseEntity.status(200).body(responseMessage);
   }
 }
