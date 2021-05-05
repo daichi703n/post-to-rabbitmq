@@ -41,7 +41,8 @@ services:
   haproxy:
     image: haproxy:1.7
     volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./data/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./data/combined.pem:/usr/local/etc/haproxy/combined.pem:ro
     depends_on:
       - stats
       - node1
@@ -49,6 +50,7 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+      - 5671:5671
 
 volumes:
   rabbitmqstats_data:

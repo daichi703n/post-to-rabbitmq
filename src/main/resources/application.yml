@@ -1,12 +1,14 @@
 spring:
   rabbitmq:
     host: localhost
-    port: 5672
+    port: 5671
     username: user
     password: bitnami
     requested-heartbeat: 10
     connection-timeout: 2
-    # ssl.enabled: true
+    ssl:
+      enabled: true
+      validate-server-certificate: false
     publisher-confirm-type: correlated
     publisher-returns: true
     template.mandatory: true
