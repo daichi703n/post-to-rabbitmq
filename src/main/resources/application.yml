@@ -4,8 +4,8 @@ spring:
     port: 5672
     username: user
     password: bitnami
-    requestedHeartBeat: 10
-    connectionTimeout: 2
+    requested-heartbeat: 10
+    connection-timeout: 2
     # ssl.enabled: true
     publisher-confirm-type: correlated
     publisher-returns: true
