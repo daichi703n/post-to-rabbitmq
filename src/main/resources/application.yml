@@ -13,5 +13,12 @@ spring:
     publisher-returns: true
     template.mandatory: true
 
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+
 app:
   is-confirm-enabled: true
