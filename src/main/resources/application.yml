@@ -2,6 +2,7 @@ spring:
   rabbitmq:
     host: localhost
     port: 5671
+    # addresses: localhost:5673,localhost:5674,localhost:5675
     username: user
     password: bitnami
     requested-heartbeat: 10
