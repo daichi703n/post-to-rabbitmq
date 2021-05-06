@@ -19,7 +19,7 @@ public class PostPublishController {
 
   @RequestMapping()
   private String hello(){
-    return "hello! Please POST to /publish";
+    return "hello! Please POST to /publish<p><a href=\"https://github.com/daichi703n/post-to-rabbitmq\">https://github.com/daichi703n/post-to-rabbitmq</a>";
   }
   @PostMapping("/publish")
   private ResponseEntity<?> publish(@RequestBody @Validated PostMessage postMassage) throws Exception {
