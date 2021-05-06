@@ -1,0 +1,25 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5671
+    # addresses: localhost:5673,localhost:5674,localhost:5675
+    username: user
+    password: bitnami
+    requested-heartbeat: 10
+    connection-timeout: 2
+    ssl:
+      enabled: true
+      validate-server-certificate: false
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template.mandatory: true
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+
+app:
+  is-confirm-enabled: true

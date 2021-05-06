@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  stats:
+    image: bitnami/rabbitmq
+    environment:
+      - RABBITMQ_NODE_TYPE=stats
+      - RABBITMQ_NODE_NAME=rabbit@stats
+      - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
+      - RABBITMQ_PLUGINS=rabbitmq_management
+    ports:
+      - '5673:5672'
+      - '15672'
+    volumes:
+      - 'rabbitmqstats_data:/bitnami'
+  node1:
+    image: bitnami/rabbitmq
+    environment:
+      - RABBITMQ_NODE_TYPE=queue-disc
+      - RABBITMQ_NODE_NAME=rabbit@node1
+      - RABBITMQ_CLUSTER_NODE_NAME=rabbit@stats
+      - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
+      - RABBITMQ_PLUGINS=rabbitmq_management
+    ports:
+      - '5674:5672'
+    volumes:
+      - 'rabbitmqdisc1_data:/bitnami'
+  node2:
+    image: bitnami/rabbitmq
+    environment:
+      - RABBITMQ_NODE_TYPE=queue-disc
+      - RABBITMQ_NODE_NAME=rabbit@node2
+      - RABBITMQ_CLUSTER_NODE_NAME=rabbit@stats
+      - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
+      - RABBITMQ_PLUGINS=rabbitmq_management
+    ports:
+      - '5675:5672'
+    volumes:
+      - 'rabbitmqdisc2_data:/bitnami'
+
+  haproxy:
+    image: haproxy:1.7
+    volumes:
+      - ./data/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./data/combined.pem:/usr/local/etc/haproxy/combined.pem:ro
+    depends_on:
+      - stats
+      - node1
+      - node2
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 5671:5671
+
+volumes:
+  rabbitmqstats_data:
+    driver: local
+  rabbitmqdisc1_data:
+    driver: local
+  rabbitmqdisc2_data:
+    driver: local

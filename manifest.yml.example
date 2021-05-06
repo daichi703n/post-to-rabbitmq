@@ -1,0 +1,14 @@
+---
+applications:
+- name: post-to-rabbitmq
+  instances: 1
+  disk_quota: 256m
+  memory: 1G
+  path: target/post-to-rabbitmq-0.0.1-SNAPSHOT.jar
+  health-check-type: process
+  buildpacks:
+  - java_buildpack_offline
+  services:
+  - rabbitmq
+  env:
+    JBP_CONFIG_OPEN_JDK_JRE: '{jre: { version: 11.+ }}'
