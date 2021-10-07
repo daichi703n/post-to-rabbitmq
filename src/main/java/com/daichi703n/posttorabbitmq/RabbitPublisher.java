@@ -39,12 +39,11 @@ public class RabbitPublisher{
       System.out.println("Wait confirm...");
       Confirm confirm = correlationData.getFuture().get(10, TimeUnit.SECONDS);
       System.out.println("Confirm received, ack = " + confirm.isAck());
-  } else {
+    } else {
       rabbitTemplate.convertAndSend(
         exchange.getName(), "foo.bar.baz", postMessage
       );
     }
   }
 
-  }
 }
